@@ -8,6 +8,8 @@ Sequence input and k-mer primitives for Zig, kept small on purpose. It is the sh
 
 `kmer` maps bases to 2-bit codes (A=0, C=1, G=2, T=3) and walks every k-mer of a sequence for k up to 32, returning both the forward code and the canonical one (the smaller of forward and reverse complement). Each base updates both codes in constant time. Any byte other than ACGT, such as N, restarts the window. The reverse complement of a packed k-mer is a reversal of 2-bit groups followed by a bitwise NOT, which the code does with two mask-and-shift steps and a byte swap.
 
+`vcf` reads the site columns of VCF records (CHROM, POS, REF and the comma-separated ALT alleles) from a buffer in memory, again with no allocation. Header lines are skipped and genotype columns ignored. It exists because colex builds pangenome graphs from a reference and a VCF.
+
 ## Usage
 
 Requires Zig 0.16.0.
@@ -32,7 +34,7 @@ The tests include a randomized comparison of the FASTA parser against a naive li
 
 ## Not here yet
 
-Multi-line FASTQ, compressed input, alignment and variant formats, and minimizer schemes. Each one lands when a library that depends on nucleo needs it.
+Multi-line FASTQ, compressed input, alignment formats, VCF genotypes, and minimizer schemes. Each one lands when a library that depends on nucleo needs it.
 
 ## License
 
